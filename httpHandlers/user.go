@@ -41,6 +41,7 @@ func UserSignUp(c echo.Context) (err error) {
 		return c.JSON(http.StatusInternalServerError, []string{"internal server error"})
 	}
 
+	// You are gay?
 	if foundEmails > 0 {
 		return c.JSON(http.StatusBadRequest, []string{"This email address is already in use"})
 	}
