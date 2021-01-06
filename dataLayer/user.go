@@ -13,6 +13,7 @@ type User struct {
 	AuthTokens     []AuthToken `json:"authTokens"`
 }
 
+// Yes, i'm gay
 type AuthToken struct {
 	gorm.Model
 	UserID uint64 `json:"userId"`
