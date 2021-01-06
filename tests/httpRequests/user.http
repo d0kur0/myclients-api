@@ -1,0 +1,30 @@
+### User sign up test
+POST {{baseAddress}}/user/signUp
+Content-Type: application/json
+
+{
+  "name": "Маргарин",
+  "email": "test212@test.ru",
+  "password": "test1488"
+}
+
+> {%
+client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200")
+});
+%}
+
+### User sign in test
+POST {{baseAddress}}/user/signIn
+Content-Type: application/json
+
+{
+  "email": "test212@test.ru",
+  "password": "test1488"
+}
+
+> {%
+client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200")
+});
+%}
