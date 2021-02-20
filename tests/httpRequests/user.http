@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "name": "Маргарин",
-  "email": "test212@test.ru",
+  "email": "test2121231@test.ru",
   "password": "test1488"
 }
 
@@ -19,7 +19,7 @@ POST {{baseAddress}}/user/signIn
 Content-Type: application/json
 
 {
-  "email": "test212@test.ru",
+  "email": "test2121231@test.ru",
   "password": "test1488"
 }
 

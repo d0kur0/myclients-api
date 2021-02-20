@@ -1,0 +1,71 @@
+# Get all records of user
+GET  {{baseAddress}}/record/getAll
+Accept: application/json
+AuthToken:  {{authToken}}
+
+> {%
+client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200")
+});
+%}
+
+###
+
+# create record for user
+POST  {{baseAddress}}/record/create
+Content-Type: application/json
+AuthToken:  {{authToken}}
+
+{
+  "serviceId": 1,
+  "clientId": 1,
+  "date": "2021-02-25T18:51:07.9936662+03:00"
+}
+
+
+> {%
+client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200")
+});
+%}
+
+###
+
+# update service for user
+POST  {{baseAddress}}/service/update
+Content-Type: application/json
+AuthToken:  {{authToken}}
+
+{
+  "id": 1,
+  "record": {
+    "serviceId": 1,
+    "clientId": 1,
+    "date": "2021-02-30 18:51:07.9936662+03:00"
+  }
+}
+
+
+> {%
+client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200")
+});
+%}
+
+###
+
+# delete service of user
+POST  {{baseAddress}}/service/delete
+Content-Type: application/json
+AuthToken:  {{authToken}}
+
+{
+  "id": 1
+}
+
+
+> {%
+client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200")
+});
+%}

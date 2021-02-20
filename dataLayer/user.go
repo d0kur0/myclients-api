@@ -1,10 +1,11 @@
 package dataLayer
 
-import "gorm.io/gorm"
+import (
+	"time"
+)
 
 type User struct {
-	gorm.Model
-	ID             uint64      `json:"id"`
+	Model
 	Name           string      `json:"name"`
 	Email          string      `json:"email" gorm:"uniqueIndex"`
 	Password       string      `json:"password"`
@@ -13,9 +14,9 @@ type User struct {
 	AuthTokens     []AuthToken `json:"authTokens"`
 }
 
-// Yes, i'm gay
 type AuthToken struct {
-	gorm.Model
-	UserID uint64 `json:"userId"`
-	Token  string `json:"token"`
+	Model
+	UserID   uint64    `json:"userId"`
+	Token    string    `json:"token"`
+	LifeTime time.Time `json:"lifeTime"`
 }

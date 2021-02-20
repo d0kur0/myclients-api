@@ -1,0 +1,71 @@
+# Get all clients of user
+GET  {{baseAddress}}/client/getAll
+Accept: application/json
+AuthToken:  {{authToken}}
+
+> {%
+client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200")
+});
+%}
+
+###
+
+# create client for user
+POST  {{baseAddress}}/client/create
+Content-Type: application/json
+AuthToken:  {{authToken}}
+
+{
+  "firstName": "Имя",
+  "middleName": "Фамилия",
+  "description": "Описание клиента"
+}
+
+
+> {%
+client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200")
+});
+%}
+
+###
+
+# update client for user
+POST  {{baseAddress}}/client/update
+Content-Type: application/json
+AuthToken:  {{authToken}}
+
+{
+  "id": 1,
+  "client": {
+    "firstName": "Имя new",
+    "middleName": "Фамилия new",
+    "description": "Описание клиента new"
+  }
+}
+
+
+> {%
+client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200")
+});
+%}
+
+###
+
+# delete client of user
+POST  {{baseAddress}}/client/delete
+Content-Type: application/json
+AuthToken:  {{authToken}}
+
+{
+  "id": 1
+}
+
+
+> {%
+client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200")
+});
+%}
