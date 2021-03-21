@@ -11,6 +11,25 @@ client.test("Request executed successfully", function () {
 
 ###
 
+# Get all records of user by date
+POST {{baseAddress}}/record/getByDate
+Content-Type: application/json
+AuthToken:  {{authToken}}
+
+{
+  "day": 25,
+  "month": 2,
+  "year": 2021
+}
+
+> {%
+client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200")
+});
+%}
+
+###
+
 # create record for user
 POST  {{baseAddress}}/record/create
 Content-Type: application/json

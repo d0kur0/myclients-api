@@ -74,6 +74,11 @@ var routes = []Route{
 		IsNeedAuth: true,
 	},
 	{
+		Path:       "/record/getByDate",
+		Handler:    RecordGetByDate,
+		IsNeedAuth: true,
+	},
+	{
 		Path:       "/record/create",
 		Handler:    RecordCreate,
 		IsNeedAuth: true,
