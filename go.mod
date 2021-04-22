@@ -3,8 +3,11 @@ module github.com/d0kur0/myclients-api
 go 1.15
 
 require (
-	github.com/davecgh/go-spew v1.1.1
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/fatih/color v1.10.0 // indirect
+	github.com/fsnotify/fsnotify v1.4.9 // indirect
+	github.com/githubnemo/CompileDaemon v1.2.1 // indirect
 	github.com/go-playground/locales v0.13.0
 	github.com/go-playground/universal-translator v0.17.0
 	github.com/go-playground/validator/v10 v10.4.1

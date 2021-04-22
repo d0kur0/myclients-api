@@ -18,5 +18,5 @@ type AuthToken struct {
 	Model
 	UserID   uint64    `json:"userId"`
 	Token    string    `json:"token"`
-	LifeTime time.Time `json:"lifeTime"`
+	DeadTime time.Time `json:"deadTime"`
 }

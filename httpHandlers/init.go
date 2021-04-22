@@ -2,6 +2,7 @@ package httpHandlers
 
 import (
 	"errors"
+	"github.com/labstack/echo/middleware"
 	"net/http"
 	"reflect"
 	"time"
@@ -30,15 +31,19 @@ func entryPoint(c echo.Context) (err error) {
 
 		db := dataLayer.GetDB()
 		result := db.Where("token = ?", c.Request().Header.Get("AuthToken")).First(&authToken)
-		if result.Error != nil && result.Error != gorm.ErrRecordNotFound {
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			return c.JSON(http.StatusUnauthorized, []string{"Token not found"})
+		}
+
+		if result.Error != nil && !errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			c.Logger().Error("Error with found auth token in database on EntryPoint")
 			return c.JSON(http.StatusInternalServerError, []string{"internal server error"})
 		}
 
-		if time.Now().After(authToken.LifeTime) {
+		if time.Now().After(authToken.DeadTime) {
 			deleteResult := db.Delete(&authToken)
 
-			if deleteResult.Error != nil && errors.Is(deleteResult.Error, gorm.ErrRecordNotFound) {
+			if deleteResult.Error != nil && !errors.Is(deleteResult.Error, gorm.ErrRecordNotFound) {
 				c.Logger().Error("Error with delete authToken on EntryPoint")
 				return c.JSON(http.StatusInternalServerError, []string{"internal server error"})
 			}
@@ -55,6 +60,11 @@ func entryPoint(c echo.Context) (err error) {
 }
 
 func Init(e *echo.Echo) (err error) {
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, "AuthToken"},
+	}))
+
 	e.Any("/*", entryPoint)
 
 	return err

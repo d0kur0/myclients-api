@@ -1,6 +1,11 @@
 package httpHandlers
 
-import "github.com/labstack/echo"
+import (
+	"github.com/d0kur0/myclients-api/httpHandlers/clientHandler"
+	"github.com/d0kur0/myclients-api/httpHandlers/recordHandler"
+	"github.com/d0kur0/myclients-api/httpHandlers/userHandler"
+	"github.com/labstack/echo"
+)
 
 type Route struct {
 	Handler    func(c echo.Context) (err error)
@@ -12,38 +17,38 @@ var routes = []Route{
 	// User actions
 	{
 		Path:       "/user/signIn",
-		Handler:    UserSignIn,
+		Handler:    userHandler.UserSignIn,
 		IsNeedAuth: false,
 	},
 	{
 		Path:       "/user/signUp",
-		Handler:    UserSignUp,
+		Handler:    userHandler.UserSignUp,
 		IsNeedAuth: false,
 	},
 	{
 		Path:       "/user/resetPassword",
-		Handler:    UserResetPassword,
+		Handler:    userHandler.UserResetPassword,
 		IsNeedAuth: false,
 	},
 	// Client actions
 	{
 		Path:       "/client/getAll",
-		Handler:    ClientGetAll,
+		Handler:    clientHandler.ClientGetAll,
 		IsNeedAuth: true,
 	},
 	{
 		Path:       "/client/create",
-		Handler:    ClientCreate,
+		Handler:    clientHandler.ClientCreate,
 		IsNeedAuth: true,
 	},
 	{
 		Path:       "/client/update",
-		Handler:    ClientUpdate,
+		Handler:    clientHandler.ClientUpdate,
 		IsNeedAuth: true,
 	},
 	{
 		Path:       "/client/delete",
-		Handler:    ClientDelete,
+		Handler:    clientHandler.ClientDelete,
 		IsNeedAuth: true,
 	},
 	// Service actions
@@ -70,27 +75,27 @@ var routes = []Route{
 	// Record actions
 	{
 		Path:       "/record/getAll",
-		Handler:    RecordGetAll,
+		Handler:    recordHandler.RecordGetAll,
 		IsNeedAuth: true,
 	},
 	{
 		Path:       "/record/getByDate",
-		Handler:    RecordGetByDate,
+		Handler:    recordHandler.RecordGetByDate,
 		IsNeedAuth: true,
 	},
 	{
 		Path:       "/record/create",
-		Handler:    RecordCreate,
+		Handler:    recordHandler.RecordCreate,
 		IsNeedAuth: true,
 	},
 	{
 		Path:       "/record/update",
-		Handler:    RecordUpdate,
+		Handler:    recordHandler.RecordUpdate,
 		IsNeedAuth: true,
 	},
 	{
 		Path:       "/record/delete",
-		Handler:    RecordDelete,
+		Handler:    recordHandler.RecordDelete,
 		IsNeedAuth: true,
 	},
 }
