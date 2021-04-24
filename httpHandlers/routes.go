@@ -3,6 +3,7 @@ package httpHandlers
 import (
 	"github.com/d0kur0/myclients-api/httpHandlers/clientHandler"
 	"github.com/d0kur0/myclients-api/httpHandlers/recordHandler"
+	"github.com/d0kur0/myclients-api/httpHandlers/serviceHandler"
 	"github.com/d0kur0/myclients-api/httpHandlers/userHandler"
 	"github.com/labstack/echo"
 )
@@ -54,22 +55,22 @@ var routes = []Route{
 	// Service actions
 	{
 		Path:       "/service/getAll",
-		Handler:    ServiceGetAll,
+		Handler:    serviceHandler.ServiceGetAll,
 		IsNeedAuth: true,
 	},
 	{
 		Path:       "/service/create",
-		Handler:    ServiceCreate,
+		Handler:    serviceHandler.ServiceCreate,
 		IsNeedAuth: true,
 	},
 	{
 		Path:       "/service/update",
-		Handler:    ServiceUpdate,
+		Handler:    serviceHandler.ServiceUpdate,
 		IsNeedAuth: true,
 	},
 	{
 		Path:       "/service/delete",
-		Handler:    ServiceDelete,
+		Handler:    serviceHandler.ServiceDelete,
 		IsNeedAuth: true,
 	},
 	// Record actions
