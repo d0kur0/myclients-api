@@ -9,7 +9,7 @@ import (
 )
 
 type ServiceCreateRequest struct {
-	Name  string `json:"name" validate:"required,max=32"`
+	Name  string `json:"name" validate:"required,max=64"`
 	Price int64  `json:"price" validate:"required"`
 }
 
