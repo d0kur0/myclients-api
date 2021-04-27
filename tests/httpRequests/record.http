@@ -17,8 +17,8 @@ Content-Type: application/json
 AuthToken:  {{authToken}}
 
 {
-  "day": 25,
-  "month": 2,
+  "day": 26,
+  "month": 4,
   "year": 2021
 }
 
@@ -38,7 +38,7 @@ AuthToken:  {{authToken}}
 {
   "serviceIds": [1],
   "clientId": 1,
-  "date": "2021-02-25T18:51:07.9936662+03:00"
+  "date": "2021-04-26T18:51:07.9936662+03:00"
 }
 
 

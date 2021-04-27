@@ -35,7 +35,7 @@ func RecordGetByDate(c echo.Context) (err error) {
 	requestDate := time.Date(request.Year, request.Month, request.Day, 0, 0, 0, 0, time.Local)
 	records := new([]dataLayer.Record)
 
-	result := db.Preload("Service").Preload("Client").Find(
+	result := db.Preload("Services").Preload("Client").Find(
 		&records,
 		"user_id = ? AND DATE(date) = ?",
 		requestUser.ID, requestDate.Format("2006-01-02"),
