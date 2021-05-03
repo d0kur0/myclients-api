@@ -11,15 +11,30 @@ client.test("Request executed successfully", function () {
 
 ###
 
+# Get map of count record in day
+POST {{baseAddress}}/record/getCountOfMonth
+Content-Type: application/json
+AuthToken:  {{authToken}}
+
+{
+  "date": "2021-05-02"
+}
+
+> {%
+client.test("Request executed successfully", function () {
+    client.assert(response.status === 200, "Response status is not 200")
+});
+%}
+
+###
+
 # Get all records of user by date
 POST {{baseAddress}}/record/getByDate
 Content-Type: application/json
 AuthToken:  {{authToken}}
 
 {
-  "day": 26,
-  "month": 4,
-  "year": 2021
+  "date": "2021-01-02"
 }
 
 > {%
@@ -38,7 +53,7 @@ AuthToken:  {{authToken}}
 {
   "serviceIds": [1],
   "clientId": 1,
-  "date": "2021-04-26T18:51:07.9936662+03:00"
+  "date": "Mon, 03 Jul 2006 21:44:38 GMT"
 }
 
 

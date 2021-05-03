@@ -13,9 +13,15 @@ import (
 
 type RecordUpdateRequest struct {
 	ID         int64     `json:"id" validate:"required"`
-	ServiceIDs []uint64  `json:"serviceId" validate:"required"`
+	ServiceIDs []uint64  `json:"serviceIds" validate:"required"`
 	ClientID   uint64    `json:"clientId" validate:"required"`
 	Date       time.Time `json:"date" validate:"required"`
+}
+
+type RecordUpdateResponse struct {
+	IsError bool             `json:"isError"`
+	Errors  []string         `json:"errors"`
+	Record  dataLayer.Record `json:"record"`
 }
 
 func RecordUpdate(c echo.Context) (err error) {
@@ -34,7 +40,10 @@ func RecordUpdate(c echo.Context) (err error) {
 	}
 
 	if validateErrs != nil {
-		return c.JSON(http.StatusOK, validateErrs)
+		return c.JSON(http.StatusOK, RecordUpdateResponse{
+			IsError: true,
+			Errors:  validateErrs,
+		})
 	}
 
 	var record dataLayer.Record
@@ -63,5 +72,8 @@ func RecordUpdate(c echo.Context) (err error) {
 		return c.JSON(http.StatusInternalServerError, "")
 	}
 
-	return c.JSON(http.StatusOK, "")
+	return c.JSON(http.StatusOK, RecordUpdateResponse{
+		IsError: false,
+		Record:  record,
+	})
 }

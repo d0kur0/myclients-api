@@ -99,4 +99,9 @@ var routes = []Route{
 		Handler:    recordHandler.RecordDelete,
 		IsNeedAuth: true,
 	},
+	{
+		Path:       "/record/getCountOfMonth",
+		Handler:    recordHandler.RecordGetCountOfMonth,
+		IsNeedAuth: true,
+	},
 }

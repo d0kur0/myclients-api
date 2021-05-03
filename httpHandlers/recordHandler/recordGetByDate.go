@@ -2,6 +2,7 @@ package recordHandler
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -12,9 +13,7 @@ import (
 )
 
 type RecordGetByDateRequest struct {
-	Day   int
-	Month time.Month
-	Year  int
+	Date string `json:"date"`
 }
 
 func RecordGetByDate(c echo.Context) (err error) {
@@ -32,12 +31,16 @@ func RecordGetByDate(c echo.Context) (err error) {
 		return c.JSON(http.StatusInternalServerError, "")
 	}
 
-	requestDate := time.Date(request.Year, request.Month, request.Day, 0, 0, 0, 0, time.Local)
+	requestDate, err := time.Parse("2006-01-02", request.Date)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, fmt.Sprintf("Error on parse requestDate (by format yyyy-MM-dd): %s", err))
+	}
+
 	records := new([]dataLayer.Record)
 
 	result := db.Preload("Services").Preload("Client").Find(
 		&records,
-		"user_id = ? AND DATE(date) = ?",
+		"user_id = ? AND DATE(date, 'localtime') = ?",
 		requestUser.ID, requestDate.Format("2006-01-02"),
 	)
 
