@@ -25,5 +25,10 @@ jobs:
       - run: go get -u -v
       - run: go build
       # Deploy
-      - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress myclients-api ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:${{ secrets.DEPLOY_TARGET_PATH }}
-      - run: ssh -o "IdentitiesOnly=yes StrictHostKeyChecking=no" $HOME/.ssh/key -i ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }} 'sudo systemctl restart myclients-api'
+      - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress myclients-api ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:/tmp
+      - run: ssh -o "IdentitiesOnly=yes StrictHostKeyChecking=no" $HOME/.ssh/key -i ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }} << EOF
+            sudo systemctl stop myclients-api
+            sudo mv /tmp/myclients-api ${{ secrets.DEPLOY_TARGET_PATH }}
+            sudo chown -R myclients-api-service:myclients-api-service ${{ secrets.DEPLOY_TARGET_PATH }}
+            sudo systemctl start myclients-api
+          EOF
