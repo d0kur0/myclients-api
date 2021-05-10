@@ -1,16 +1,17 @@
 package clientHandler
 
 import (
+	"net/http"
+
 	"github.com/d0kur0/myclients-api/dataLayer"
 	"github.com/d0kur0/myclients-api/helpers"
 	"github.com/labstack/echo"
-	"net/http"
 )
 
 type ClientCreateRequest struct {
 	FirstName   string `json:"firstName" validate:"required,max=32"`
-	MiddleName  string `json:"middleName" validate:"required,max=32"`
-	Description string `json:"description" validate:"required,max=256"`
+	MiddleName  string `json:"middleName" validate:"max=32"`
+	Description string `json:"description" validate:"max=256"`
 }
 
 type ClientCreateResponse struct {
